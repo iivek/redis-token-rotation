@@ -1,16 +1,17 @@
 import asyncio
 import aioredis
 
-from token_refresh.handlers import TokenHandler, RedisTokenFIFO
+from token_refresh.redis_token_fifo import RedisTokenFIFO
+from token_refresh.token_manager import TokenManager
 from configuration import env
 
 
 async def main():
     async_client = await aioredis.from_url(
         f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_DB}",
-        decode_responses=True   # This is important
+        decode_responses=False
     )
-    token_handler = TokenHandler(RedisTokenFIFO(async_client))
+    token_handler = TokenManager(RedisTokenFIFO(async_client))
 
     # Issue a token for a user
     user_id = 123
