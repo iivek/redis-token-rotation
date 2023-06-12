@@ -9,7 +9,6 @@ from configuration import env
 async def main():
     async_client = await aioredis.from_url(
         f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_DB}",
-        decode_responses=False
     )
     token_handler = TokenManager(RedisTokenFIFO(async_client))
 
