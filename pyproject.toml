@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "redis-token-refresh"
+version = "0.1.0"
+description = "Token rotation, redis"
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = ">=5.2"
+black = ">=2.25"
+redis = ">=4.4.0"
+pytest-asyncio = ">=0.15.0"
+pytest-mock = ">=3.1.0"
+aioredis = ">=2.0.1"
+asynctest = ">=0.13.0"
+python-dotenv = ">=1.0.0"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+include = '\/.*\.pyi?$'
