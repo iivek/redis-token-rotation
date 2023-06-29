@@ -32,7 +32,7 @@
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/iivek/redis-token-rotation.git`
-2. Install the dependencies: `poetry install`
+2. Install the dependencies: `cd redis-token-rotation && poetry install`
 
 <!-- Provide examples or instructions on how to use your project -->
 ## Usage
