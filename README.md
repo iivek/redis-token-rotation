@@ -24,7 +24,7 @@
 <!-- Describe your key features -->
 ## About
 
-- Made for customized app authorization that uses refresh tokens
+- Made for authorization flows that use internal refresh tokens
 - Implements token generation, validation, rotation and token reuse detection
 - Uses an async Redis client. 
 
@@ -43,11 +43,11 @@ $ export PROJECT_ROOT=$(pwd)
 $ cd $PROJECT_ROOT/examples/terraform && \
   terraform init && \
   terraform plan && \
-  terraform apply -auto-approve   # provision a local redis instance
+  terraform apply -auto-approve              # provision a local redis instance
 ```
 
 Next, we can run the example python script:
 ```bash
 $ cd $PROJECT_ROOT/examples && \
-  PYTHONPATH=$PROJECT_ROOT python main.py           # run the example
+  PYTHONPATH=$PROJECT_ROOT python main.py    # run the example
 ```
