@@ -31,7 +31,7 @@
 <!-- Provide instructions on how to install and run your project -->
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+1. Clone the repository: `git clone https://github.com/iivek/redis-token-rotation.git`
 2. Install the dependencies: `poetry install`
 
 <!-- Provide examples or instructions on how to use your project -->
