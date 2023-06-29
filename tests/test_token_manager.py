@@ -102,9 +102,9 @@ async def test_provide_token(redis_mock, mocker):
     mocker.patch.object(token_handler, 'validate_token', side_effect=side_effect)
 
     # Call the provide_token method with different token statuses
-    _, status_valid = await token_handler.provide_token("user_id", "valid_token")
-    _, status_invalid = await token_handler.provide_token("user_id", "invalid_token")
-    _, status_reused = await token_handler.provide_token("user_id", "invalidated_token")
+    _, status_valid = await token_handler.receive_token("user_id", "valid_token")
+    _, status_invalid = await token_handler.receive_token("user_id", "invalid_token")
+    _, status_reused = await token_handler.receive_token("user_id", "invalidated_token")
 
     # Assert the expected status codes
     assert status_valid == 1

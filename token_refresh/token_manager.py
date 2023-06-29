@@ -42,6 +42,15 @@ class TokenManager:
         return token is not None and token != ""
 
     async def issue_token(self, user_id: str):
+        """
+        Issue a new token for the user_id.
+
+        Args:
+            user_id:
+
+        Returns:
+
+        """
         token = self.generate_token(self.token_length)
         await self.rotation.add(user_id, token)
         return token
@@ -57,9 +66,9 @@ class TokenManager:
     async def revoke_token(self, user_id: str):
         await self.rotation.add(user_id, "")
 
-    async def provide_token(self, user_id, token: str):
+    async def receive_token(self, user_id, token: str):
         """
-        Actions triggered by token submission by the user.
+        Token submission, from the user's side.
 
         Args:
             self:

@@ -22,11 +22,13 @@ async def main():
     status = await token_handler.validate_token(user_id, issued_token)
     print(f"Checking validity for {issued_token}:", token_handler.status_messages[status])
 
-    new_token, status = await token_handler.provide_token(user_id, issued_token)
-    print(f"Provided the token {issued_token}: {token_handler.status_messages[status]}. Newly issued token: {new_token}")
+    # User provides a token that's valid
+    new_token, status = await token_handler.receive_token(user_id, issued_token)
+    print(f"User provided the token {issued_token}: {token_handler.status_messages[status]}. Auth service issued a new token: {new_token}")
 
-    new_token, status = await token_handler.provide_token(user_id, issued_token)
-    print(f"Provided the token {issued_token}: {token_handler.status_messages[status]}. Newly issued token: {new_token}")
+    # User attempts to provide a token that is no longer valid due to token rotation
+    new_token, status = await token_handler.receive_token(user_id, issued_token)
+    print(f"User provided the token {issued_token}: {token_handler.status_messages[status]}. Auth service issued a new token: {new_token}")
 
     await async_client.close()
 
