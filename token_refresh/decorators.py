@@ -4,16 +4,7 @@ from typing import Any, Iterable, Union
 
 
 def decode_args_to_string(func):
-    """
-    Decorator that decodes bytes arguments to strings before calling the decorated function.
-
-    Args:
-        func: The function to be decorated.
-
-    Returns:
-        The decorated function.
-
-    """
+    """Decorator that decodes bytes arguments to strings before calling the decorated function."""
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
         args = [arg.decode() if isinstance(arg, bytes) else arg for arg in args]
@@ -23,15 +14,7 @@ def decode_args_to_string(func):
 
 
 def decode_output_to_string(func: Callable) -> Callable:
-    """
-        Decorator that decodes the output of a function from bytes to string if necessary.
-
-        Args:
-            func: The function to decorate.
-
-        Returns:
-            The decorated function.
-        """
+    """Decorator that decodes the output of a function from bytes to string if needed."""
     @functools.wraps(func)
     async def wrapper(*args, **kwargs) -> Union[str, Iterable[str]]:
         result = await func(*args, **kwargs)

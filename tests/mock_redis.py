@@ -2,6 +2,7 @@ import pytest
 
 
 def create_redis_mock(redis_mock, redis_dict):
+    """Mocking the redis client, with the goal to use python lists in place of of redis lists."""
     redis_client_mock = redis_mock.return_value
 
     # Mock the rpush function

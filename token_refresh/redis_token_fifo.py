@@ -26,42 +26,17 @@ class RedisTokenFIFO:
 
     @decode_args_to_string
     async def add(self, key, element: str):
-        """
-         Add an element to the FIFO queue.
-
-         Args:
-             key: The key associated with the FIFO queue.
-             element: The element to add.
-
-         """
+        """Add an element to the FIFO queue."""
         await self.redis_client.rpush(key, element)
         if await self.redis_client.llen(key) > self.fifo_size:
             await self.redis_client.lpop(key)
 
     @decode_output_to_string
     async def get_invalidated(self, key) -> Iterable:
-        """
-        Get the entire FIFO except the freshest element
-
-        Args:
-            key: The key associated with the FIFO queue.
-
-        Returns:
-            An iterable containing everything escept the freshest element.
-
-        """
+        """Get the entire FIFO except the freshest element"""
         return await self.redis_client.lrange(key, 0, -2)
 
     @decode_output_to_string
     async def get_valid(self, key) -> Iterable:
-        """
-        Get the freshest element in the queue
-
-        Args:
-            key: The key associated with the FIFO queue.
-
-        Returns:
-            An iterable containing the freshest element.
-
-        """
+        """Get the freshest element in the queue"""
         return await self.redis_client.lrange(key, -1, -1)
