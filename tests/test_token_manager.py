@@ -1,8 +1,8 @@
 import pytest
 import string
 
-from token_refresh.redis_token_fifo import RedisTokenFIFO
-from token_refresh.token_manager import TokenManager
+from token_rotation.redis_token_fifo import RedisTokenFIFO
+from token_rotation.token_manager import TokenManager
 from tests.mock_redis import redis_mock
 
 
@@ -21,18 +21,24 @@ def test_generate_token():
 
 @pytest.mark.asyncio
 async def test_issue_token(token_manager, mocker):
-    user_id = 'user1'
+    user_id = "user1"
 
     first_issued_token = await token_manager.issue_token(user_id)
-    assert await token_manager.rotation.get_valid(user_id) == [first_issued_token]
+    assert await token_manager.rotation.get_valid(user_id) == [
+        first_issued_token
+    ]
 
     second_issued_token = await token_manager.issue_token(user_id)
-    assert await token_manager.rotation.get_valid(user_id) == [second_issued_token]
-    assert first_issued_token in await token_manager.rotation.get_invalidated(user_id)
+    assert await token_manager.rotation.get_valid(user_id) == [
+        second_issued_token
+    ]
+    assert first_issued_token in await token_manager.rotation.get_invalidated(
+        user_id
+    )
 
 
 def test_is_valid_format():
-    valid_token = 'abc123'
+    valid_token = "abc123"
     assert TokenManager.is_valid_format(valid_token)
 
     invalid_token = ""
@@ -41,8 +47,8 @@ def test_is_valid_format():
 
 @pytest.mark.asyncio
 async def test_validate_token(token_manager, mocker):
-    user_id = 'user1'
-    token = 'abc123'
+    user_id = "user1"
+    token = "abc123"
     status = await token_manager.validate_token(user_id, token)
     assert status == 0
     status = await token_manager.validate_token(user_id, None)
@@ -65,7 +71,7 @@ async def test_validate_token(token_manager, mocker):
 
 @pytest.mark.asyncio
 async def test_revoke_token(token_manager):
-    user_id = 'user1'
+    user_id = "user1"
     token = await token_manager.issue_token(user_id)
     await token_manager.revoke_token(user_id)
 
@@ -95,16 +101,25 @@ async def test_provide_token(redis_mock, mocker):
 
     # Define the expected side effect
     side_effects = [1, 0, -1]
+
     async def side_effect(user_id, token):
         return side_effects.pop(0)
 
     # Patch the validate_token method with the side effect
-    mocker.patch.object(token_handler, 'validate_token', side_effect=side_effect)
+    mocker.patch.object(
+        token_handler, "validate_token", side_effect=side_effect
+    )
 
     # Call the provide_token method with different token statuses
-    _, status_valid = await token_handler.receive_token("user_id", "valid_token")
-    _, status_invalid = await token_handler.receive_token("user_id", "invalid_token")
-    _, status_reused = await token_handler.receive_token("user_id", "invalidated_token")
+    _, status_valid = await token_handler.receive_token(
+        "user_id", "valid_token"
+    )
+    _, status_invalid = await token_handler.receive_token(
+        "user_id", "invalid_token"
+    )
+    _, status_reused = await token_handler.receive_token(
+        "user_id", "invalidated_token"
+    )
 
     # Assert the expected status codes
     assert status_valid == 1

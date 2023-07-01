@@ -31,8 +31,11 @@
 <!-- Provide instructions on how to install and run your project -->
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/iivek/redis-token-rotation.git`
-2. Install the dependencies: `cd redis-token-rotation && poetry install`
+Clone the repository and install the package:
+```bash
+$ git clone https://github.com/iivek/redis-token-rotation.git
+$ pip install -e ./
+```
 
 <!-- Provide examples or instructions on how to use your project -->
 ## Usage

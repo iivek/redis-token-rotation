@@ -1,6 +1,9 @@
 from typing import Iterable
 
-from token_refresh.decorators import decode_args_to_string, decode_output_to_string
+from token_rotation.decorators import (
+    decode_args_to_string,
+    decode_output_to_string,
+)
 
 
 class RedisTokenFIFO:

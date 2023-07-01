@@ -1,7 +1,26 @@
+[project]
+name = "token_rotation"
+version = "0.0.1"
+authors = [
+  { name="iivek", email="iivek@haraia.com" },
+]
+description = "Refresh token rotation on Redis."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/iivek/redis-token-rotation"
+"Bug Tracker" = "https://github.com/iivek/redis-token-rotation/issues"
+
 [tool.poetry]
-name = "redis-token-refresh"
+name = "token_rotation"
 version = "0.1.0"
-description = "Token rotation, redis"
+description = "Refresh hoken rotation on Redis"
 authors = []
 
 [tool.poetry.dependencies]
@@ -16,7 +35,6 @@ pytest-mock = ">=3.1.0"
 aioredis = ">=2.0.1"
 asynctest = ">=0.13.0"
 python-dotenv = ">=1.0.0"
-
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -52,6 +52,6 @@ def create_redis_mock(redis_mock, redis_dict):
 
 @pytest.fixture
 def redis_mock(mocker):
-    redis_mock = mocker.patch('redis.Redis')
+    redis_mock = mocker.patch("redis.Redis")
     redis_dict = {}
     return create_redis_mock(redis_mock, redis_dict)

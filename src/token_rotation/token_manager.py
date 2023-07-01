@@ -11,11 +11,13 @@ class TokenManager:
     status_messages = {
         -1: "Token reused",
         0: "Invalid token",
-        1: "Valid token"
+        1: "Valid token",
     }
     alphabet = string.ascii_letters + string.digits
 
-    def __init__(self, fifo, token_length=32, callbacks: Dict[int, Callable] = None):
+    def __init__(
+        self, fifo, token_length=32, callbacks: Dict[int, Callable] = None
+    ):
         """
 
         :param fifo:
@@ -25,13 +27,17 @@ class TokenManager:
         self.token_length = token_length
         self.rotation = fifo
         self.callbacks = callbacks or {}
-        invalid_keys = set(self.callbacks.keys()) - set(self.status_messages.keys())
+        invalid_keys = set(self.callbacks.keys()) - set(
+            self.status_messages.keys()
+        )
         if invalid_keys:
             raise ValueError(f"Invalid callback keys: {invalid_keys}")
 
     @classmethod
     def generate_token(cls, token_length=32):
-        return ''.join(secrets.choice(cls.alphabet) for _ in range(token_length))
+        return "".join(
+            secrets.choice(cls.alphabet) for _ in range(token_length)
+        )
 
     @classmethod
     def status_message(cls, status_code):
@@ -56,7 +62,9 @@ class TokenManager:
         return token
 
     async def validate_token(self, user_id: str, token: str):
-        if self.is_valid_format(token) and (await self.rotation.get_valid(user_id) == [token]):
+        if self.is_valid_format(token) and (
+            await self.rotation.get_valid(user_id) == [token]
+        ):
             return 1
         elif token in (await self.rotation.get_invalidated(user_id)):
             return -1
@@ -93,4 +101,3 @@ class TokenManager:
         callback = self.callbacks.get(status)
         if callback:
             await callback()
-
