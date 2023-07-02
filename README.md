@@ -24,9 +24,7 @@
 <!-- Describe your key features -->
 ## About
 
-- Made for authorization flows that use internal refresh tokens
-- Implements token generation, validation, rotation and token reuse detection
-- Uses an async Redis client. 
+Made for authorization flows that use internal refresh tokens. Implements token generation, validation, rotation and token reuse detection, using an async Redis client. 
 
 <!-- Provide instructions on how to install and run your project -->
 ## Installation
